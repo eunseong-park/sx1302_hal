@@ -1,7 +1,3 @@
-### get external defined data
-
-include ../target.cfg
-
 ### Application-specific constants
 
 APP_NAME := lora_pkt_fwd
@@ -52,28 +48,19 @@ clean:
 	rm -f $(OBJDIR)/*.o
 	rm -f $(APP_NAME)
 
-ifneq ($(strip $(TARGET_IP)),)
- ifneq ($(strip $(TARGET_DIR)),)
-  ifneq ($(strip $(TARGET_USR)),)
 install:
-	@echo "---- Copying packet_forwarder files to $(TARGET_IP):$(TARGET_DIR)"
-	@ssh $(TARGET_USR)@$(TARGET_IP) "mkdir -p $(TARGET_DIR)"
-	@scp lora_pkt_fwd $(TARGET_USR)@$(TARGET_IP):$(TARGET_DIR)
+	mkdir -p /etc/lora_pkt_fwd
+	cp lora_pkt_fwd /usr/local/bin/
+	cp reset_lgw.sh /usr/local/bin/
+	chmod +x /usr/local/bin/reset_lgw.sh
+	cp lora_pkt_fwd.service /etc/systemd/system/
+	systemctl daemon-reload
+
 install_conf:
-	@echo "---- Copying packet_forwarder conf files to $(TARGET_IP):$(TARGET_DIR)"
-	@ssh $(TARGET_USR)@$(TARGET_IP) "mkdir -p $(TARGET_DIR)"
-	@scp global_conf.json.sx1250.* $(TARGET_USR)@$(TARGET_IP):$(TARGET_DIR)
-	@scp global_conf.json.sx1255.* $(TARGET_USR)@$(TARGET_IP):$(TARGET_DIR)
-	@scp global_conf.json.sx1257.* $(TARGET_USR)@$(TARGET_IP):$(TARGET_DIR)
-  else
-	@echo "ERROR: TARGET_USR is not configured in target.cfg"
-  endif
- else
-	@echo "ERROR: TARGET_DIR is not configured in target.cfg"
- endif
-else
-	@echo "ERROR: TARGET_IP is not configured in target.cfg"
-endif
+	mkdir -p /etc/lora_pkt_fwd
+	cp global_conf.json.sx1250.* /etc/lora_pkt_fwd/
+	cp global_conf.json.sx1255.* /etc/lora_pkt_fwd/
+	cp global_conf.json.sx1257.* /etc/lora_pkt_fwd/
 
 ### Sub-modules compilation
 

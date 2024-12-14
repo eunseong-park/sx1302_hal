@@ -7,7 +7,8 @@ export
 ### general build targets
 
 .PHONY: all clean install install_conf libtools libloragw packet_forwarder util_net_downlink util_chip_id util_boot util_spectral_scan
-
+#Default to only make the core and not utils
+core: libtools libloragw packet_forwarder
 all: libtools libloragw packet_forwarder util_net_downlink util_chip_id util_boot util_spectral_scan
 
 libtools:
@@ -41,12 +42,7 @@ clean:
 	$(MAKE) clean -e -C util_spectral_scan
 
 install:
-	$(MAKE) install -e -C libloragw
 	$(MAKE) install -e -C packet_forwarder
-	$(MAKE) install -e -C util_net_downlink
-	$(MAKE) install -e -C util_chip_id
-	$(MAKE) install -e -C util_boot
-	$(MAKE) install -e -C util_spectral_scan
 
 install_conf:
 	$(MAKE) install_conf -e -C packet_forwarder

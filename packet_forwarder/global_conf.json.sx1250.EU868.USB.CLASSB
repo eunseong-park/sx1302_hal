@@ -1,7 +1,7 @@
 {
     "SX130x_conf": {
-        "com_type": "SPI",
-        "com_path": "/dev/spidev0.0",
+        "com_type": "USB",
+        "com_path": "/dev/ttyACM0",
         "lorawan_public": true,
         "clksrc": 0,
         "antenna_gain": 0, /* antenna gain, in dBi */
@@ -11,7 +11,6 @@
             "mode": "all_sf" /* high_capacity or all_sf */
         },
         "sx1261_conf": {
-            "spi_path": "/dev/spidev0.1",
             "rssi_offset": 0, /* dB */
             "spectral_scan": {
                 "enable": false,
@@ -21,19 +20,19 @@
                 "pace_s": 10
             },
             "lbt": {
-                "enable": false,
+                "enable": true,
                 "rssi_target": -70, /* dBm */
                 "channels":[ /* 16 channels maximum */
-                    { "freq_hz": 867100000, "bandwidth": 125000, "scan_time_us": 128,  "transmit_time_ms": 400 },
-                    { "freq_hz": 867300000, "bandwidth": 125000, "scan_time_us": 128,  "transmit_time_ms": 400 },
-                    { "freq_hz": 867500000, "bandwidth": 125000, "scan_time_us": 128,  "transmit_time_ms": 400 },
-                    { "freq_hz": 867700000, "bandwidth": 125000, "scan_time_us": 128,  "transmit_time_ms": 400 },
-                    { "freq_hz": 867900000, "bandwidth": 125000, "scan_time_us": 128,  "transmit_time_ms": 400 },
-                    { "freq_hz": 868100000, "bandwidth": 125000, "scan_time_us": 128,  "transmit_time_ms": 400 },
-                    { "freq_hz": 868300000, "bandwidth": 125000, "scan_time_us": 128,  "transmit_time_ms": 400 },
-                    { "freq_hz": 868500000, "bandwidth": 125000, "scan_time_us": 128,  "transmit_time_ms": 400 },
-                    { "freq_hz": 869525000, "bandwidth": 125000, "scan_time_us": 5000, "transmit_time_ms": 4000 },
-                    { "freq_hz": 868300000, "bandwidth": 250000, "scan_time_us": 128,  "transmit_time_ms": 400 }
+                    {"freq_hz": 867100000, "bandwidth": 125000, "scan_time_us": 128,  "transmit_time_ms": 4000},
+                    {"freq_hz": 867300000, "bandwidth": 125000, "scan_time_us": 128,  "transmit_time_ms": 4000},
+                    {"freq_hz": 867500000, "bandwidth": 125000, "scan_time_us": 128,  "transmit_time_ms": 4000},
+                    {"freq_hz": 867700000, "bandwidth": 125000, "scan_time_us": 128,  "transmit_time_ms": 4000},
+                    {"freq_hz": 867900000, "bandwidth": 125000, "scan_time_us": 128,  "transmit_time_ms": 4000},
+                    {"freq_hz": 868100000, "bandwidth": 125000, "scan_time_us": 128,  "transmit_time_ms": 4000},
+                    {"freq_hz": 868300000, "bandwidth": 125000, "scan_time_us": 128,  "transmit_time_ms": 4000},
+                    {"freq_hz": 868500000, "bandwidth": 125000, "scan_time_us": 128,  "transmit_time_ms": 4000},
+                    {"freq_hz": 869525000, "bandwidth": 125000, "scan_time_us": 5000, "transmit_time_ms": 4000},
+                    {"freq_hz": 868300000, "bandwidth": 250000, "scan_time_us": 128,  "transmit_time_ms": 4000}
                 ]
             }
         },
@@ -88,7 +87,7 @@
     },
 
     "gateway_conf": {
-        "gateway_ID": "8822222222222222",
+        "gateway_ID": "868BBBBBBBBBBBBB",
         /* change with default server address/ports */
         "server_address": "eu1.cloud.thethings.network",
         "serv_port_up": 1700,
@@ -102,7 +101,7 @@
         "forward_crc_error": false,
         "forward_crc_disabled": false,
         /* GPS configuration */
-        "gps_tty_path": "/dev/ttyS",
+        "gps_tty_path": "/dev/ttyS0",
         /* GPS reference coordinates */
         "ref_latitude": 0.0,
         "ref_longitude": 0.0,
@@ -124,4 +123,3 @@
         "log_file": "loragw_hal.log"
     }
 }
-

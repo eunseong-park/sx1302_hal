@@ -1,7 +1,3 @@
-### get external defined data
-
-include ../target.cfg
-
 ### User defined build options
 
 ARCH ?=
@@ -51,23 +47,6 @@ all: $(APP_NAME)
 clean:
 	rm -f obj/*.o
 	rm -f $(APP_NAME)
-
-install:
-ifneq ($(strip $(TARGET_IP)),)
- ifneq ($(strip $(TARGET_DIR)),)
-  ifneq ($(strip $(TARGET_USR)),)
-	@echo "---- Copying chip_id files to $(TARGET_IP):$(TARGET_DIR)"
-	@ssh $(TARGET_USR)@$(TARGET_IP) "mkdir -p $(TARGET_DIR)"
-	@scp chip_id $(TARGET_USR)@$(TARGET_IP):$(TARGET_DIR)
-  else
-	@echo "ERROR: TARGET_USR is not configured in target.cfg"
-  endif
- else
-	@echo "ERROR: TARGET_DIR is not configured in target.cfg"
- endif
-else
-	@echo "ERROR: TARGET_IP is not configured in target.cfg"
-endif
 
 $(OBJDIR):
 	mkdir -p $(OBJDIR)

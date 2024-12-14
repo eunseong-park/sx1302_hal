@@ -3454,6 +3454,9 @@ void thread_gps(void) {
                     } else if (latest_msg == NMEA_RMC) { /* Get location from RMC frames */
                         gps_process_coords();
                     }
+                    else if (latest_msg == NMEA_GGA) { /* Get location from RMC frames */
+                        gps_process_coords();
+                    }
                 }
             }
 

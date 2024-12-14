@@ -2,7 +2,6 @@
 
 LIBLORAGW_VERSION := `cat ../VERSION`
 include library.cfg
-include ../target.cfg
 
 ### constant symbols
 
@@ -35,32 +34,13 @@ all: 	libloragw.a \
 		test_loragw_counter \
 		test_loragw_gps \
 		test_loragw_toa \
-		test_loragw_sx1261_rssi
 
 clean:
 	rm -f libloragw.a
 	rm -f test_loragw_*
 	rm -f $(OBJDIR)/*.o
 	rm -f inc/config.h
-
-install:
-ifneq ($(strip $(TARGET_IP)),)
- ifneq ($(strip $(TARGET_DIR)),)
-  ifneq ($(strip $(TARGET_USR)),)
-	@echo "---- Copying libloragw files to $(TARGET_IP):$(TARGET_DIR)"
-	@ssh $(TARGET_USR)@$(TARGET_IP) "mkdir -p $(TARGET_DIR)"
-	@scp test_loragw_* $(TARGET_USR)@$(TARGET_IP):$(TARGET_DIR)
-	@scp ../tools/reset_lgw.sh $(TARGET_USR)@$(TARGET_IP):$(TARGET_DIR)
-  else
-	@echo "ERROR: TARGET_USR is not configured in target.cfg"
-  endif
- else
-	@echo "ERROR: TARGET_DIR is not configured in target.cfg"
- endif
-else
-	@echo "ERROR: TARGET_IP is not configured in target.cfg"
-endif
-
+	
 ### transpose library.cfg into a C header file : config.h
 
 inc/config.h: ../VERSION library.cfg
@@ -170,5 +150,4 @@ test_loragw_toa: tst/test_loragw_toa.c libloragw.a
 
 test_loragw_sx1261_rssi: tst/test_loragw_sx1261_rssi.c libloragw.a
 	$(CC) $(CFLAGS) -L. -L../libtools  $< -o $@ $(LIBS)
-
 ### EOF

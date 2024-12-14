@@ -1,0 +1,11 @@
+[Unit]
+Description=LoraWAN Packet Forwarder
+After=network-online.target
+
+[Service]
+WorkingDirectory=/etc/lora_pkt_fwd
+ExecStart=/usr/local/bin/lora_pkt_fwd -c ./global_conf.json
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
